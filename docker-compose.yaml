@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  frontend:
+    build:
+      context: marvel_services
+    container_name: frontend
+    working_dir: /usr/src/app
+    networks:
+      - node-network
+    volumes:
+      - ./Marvel_services:/usr/src/app
+      - /usr/src/app/node_modules
+    tty: true
+    ports:
+      - '5173:5173'
+    command: npm run start
+
+  nginx:
+    build:
+      context: nginx
+    container_name: nginx
+    restart: always
+    tty: true
+    ports:
+      - '8000:80'
+    networks:
+      - node-network
+    depends_on:
+      - frontend
+
+networks:
+  node-network:
+    driver: bridge

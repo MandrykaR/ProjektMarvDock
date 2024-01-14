@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql
+    container_name: mysql-container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: your_password
+    ports:
+      - '3306:3306'
+
+  frontend:
+    build:
+      context: ./Marv/Marvel_services
+    container_name: react-app
+    ports:
+      - '3000:3000'
+
+  nginx:
+    build:
+      context: ./nginx
+    restart: always
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - volume1:/usr/share/nginx/html
+    links:
+      - 'frontend'
