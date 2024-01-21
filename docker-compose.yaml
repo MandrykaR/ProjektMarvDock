@@ -13,22 +13,39 @@ services:
       - /usr/src/app/node_modules
     tty: true
     ports:
-      - '5173:5173'
+      - '5173:3000'
     command: npm run start
 
-  nginx:
+  backend:
     build:
-      context: nginx
-    container_name: nginx
-    restart: always
-    tty: true
-    ports:
-      - '8000:80'
+      context: res
+    container_name: backend
+    working_dir: /usr/src/app
     networks:
       - node-network
-    depends_on:
-      - frontend
+    volumes:
+      - ./res:/usr/src/app
+      - /usr/src/app/node_modules
+    tty: true
+    ports:
+      - '5175:3001'
+    command: npm run start
+
+  # nginx:
+  #   build:
+  #     context: nginx
+  #   container_name: nginx
+  #   restart: always
+  #   tty: true
+  #   ports:
+  #     - '8000:80'
+  #   networks:
+  #     - node-network
+  #   depends_on:
+  #     - frontend
 
 networks:
   node-network:
     driver: bridge
+
+
