@@ -7,4 +7,4 @@
   - pobrać go na swój komputer
   - otworzyć kod w edytorze (VS)
   - trzeba urzyć komendy uruchamiającej projekt w Dockerze `docker-compose up`
-  - otworzyć localhost: 5175
+  - otworzyć localhost: 5173
